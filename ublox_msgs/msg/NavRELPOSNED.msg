@@ -9,7 +9,7 @@
 # defined at the reference station
 #
 # Supported on:
-#  - u-blox 8 / u-blox M8 from protocol version 20 up to version 23.01 (only
+#  - u-blox 9 with protocol version 27.1 (only
 #    with High Precision GNSS products)
 #
 

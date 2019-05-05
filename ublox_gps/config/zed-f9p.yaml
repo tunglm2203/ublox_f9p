@@ -1,11 +1,6 @@
-# Configuration Settings for C94-M8P device
+# Configuration Settings for ZED-F9P device
 
 debug: 1                    # Range 0-4 (0 means no debug statements will print)
-
-#load:
-#  mask: 1               # Save I/O, Message, INF Message, Nav, Receiver 
-#  MASK_IO_PORT: 1                          # Manager, Antenna, and Logging Configuration
-#  device: 2 
 
 device: /dev/ttyACM0
 frame_id: gps
