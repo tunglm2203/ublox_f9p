@@ -108,21 +108,21 @@ void UbloxNode::addFirmwareInterface() {
 
 void UbloxNode::addProductInterface(std::string product_category,
                                     std::string ref_rov) {
-  // if (product_category.compare("HPG") == 0 && ref_rov.compare("REF") == 0)
-  //   components_.push_back(ComponentPtr(new HpgRefProduct));
-  // else if (product_category.compare("HPG") == 0 && ref_rov.compare("ROV") == 0)
+  if (product_category.compare("HPG") == 0 && ref_rov.compare("REF") == 0)
+    components_.push_back(ComponentPtr(new HpgRefProduct));
+  else if (product_category.compare("HPG") == 0 && ref_rov.compare("ROV") == 0)
     components_.push_back(ComponentPtr(new HpgRovProduct));
-  // else if (product_category.compare("TIM") == 0)
-  //   components_.push_back(ComponentPtr(new TimProduct));
-  // else if (product_category.compare("ADR") == 0 ||
-  //          product_category.compare("UDR") == 0)
-  //   components_.push_back(ComponentPtr(new AdrUdrProduct));
-  // else if (product_category.compare("FTS") == 0)
-  //   components_.push_back(ComponentPtr(new FtsProduct));
-  // else if(product_category.compare("SPG") != 0)
-  //   ROS_WARN("Product category %s %s from MonVER message not recognized %s",
-  //            product_category.c_str(), ref_rov.c_str(),
-  //            "options are HPG REF, HPG ROV, TIM, ADR, UDR, FTS, SPG");
+  else if (product_category.compare("TIM") == 0)
+    components_.push_back(ComponentPtr(new TimProduct));
+  else if (product_category.compare("ADR") == 0 ||
+           product_category.compare("UDR") == 0)
+    components_.push_back(ComponentPtr(new AdrUdrProduct));
+  else if (product_category.compare("FTS") == 0)
+    components_.push_back(ComponentPtr(new FtsProduct));
+  else if(product_category.compare("SPG") != 0)
+    ROS_WARN("Product category %s %s from MonVER message not recognized %s",
+             product_category.c_str(), ref_rov.c_str(),
+             "options are HPG REF, HPG ROV, TIM, ADR, UDR, FTS, SPG");
 }
 
 void UbloxNode::getRosParams() {
@@ -592,17 +592,17 @@ void UbloxNode::initialize() {
   initializeIo();
   // Must process Mon VER before setting firmware/hardware params
   processMonVer();
-  // if(protocol_version_ <= 14) {
-  //   if(nh->param("raw_data", false))
-  //     components_.push_back(ComponentPtr(new RawDataProduct));
-  // }
-  // // Must set firmware & hardware params before initializing diagnostics
-  // for (int i = 0; i < components_.size(); i++)
-  //   components_[i]->getRosParams();
+  if(protocol_version_ <= 14) {
+    if(nh->param("raw_data", false))
+      components_.push_back(ComponentPtr(new RawDataProduct));
+  }
+  // Must set firmware & hardware params before initializing diagnostics
+  for (int i = 0; i < components_.size(); i++)
+    components_[i]->getRosParams();
   // Do this last
   initializeRosDiagnostics();
 
-  //if (configureUblox()) {
+  if (configureUblox()) {
     ROS_INFO("U-Blox configured successfully.");
     // Subscribe to all U-Blox messages
     subscribe();
@@ -615,7 +615,7 @@ void UbloxNode::initialize() {
                              this);
     poller.start();
     ros::spin();
-  //}
+  }
   shutdown();
 }
 
