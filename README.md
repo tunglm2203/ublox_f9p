@@ -1,4 +1,4 @@
-# ublox driver for ZED-F9P receiver
+# ROS driver for ublox ZED-F9P receiver
 
 Just quick hardcode to publish some UBX messages to ROS.
 Disabled configuration of the receiver via yaml. Reciever should be configured via u-center software.
