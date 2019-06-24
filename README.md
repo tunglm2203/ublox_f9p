@@ -1,5 +1,21 @@
 # ROS driver for ublox ZED-F9P receiver
 
+I copied the ublox ROS driver from https://github.com/bao-eng/ublox
+
+Looking at my initial commit comments I really didn't change anything to get it to work.
+
+I added ROS topic RTCM correction support so the board produces an RTK fix. (The correction data is sent through the RSO driver node.) The RTCM server is here: https://github.com/ros-agriculture/ntrip_ros A similar server (may be better than mine) is here: https://github.com/dayjaby/ntrip_ros
+
+I added launch files and yaml files to allow running two F9P boards at same time. This allows operation in MovingBaseline mode.
+
+**I need to add the uBlox config files which get manually loaded on to the boards through uBlox u-center software.**
+
+Below is original README from bao-eng that I started with:
+
+=======================================================================
+
+# ROS driver for ublox ZED-F9P receiver
+
 Just quick hardcode to publish some UBX messages to ROS.
 Disabled configuration of the receiver via yaml. Reciever should be configured via u-center software.
 Hardcoded to work as HPG Rover device.
