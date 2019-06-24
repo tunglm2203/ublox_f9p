@@ -108,6 +108,8 @@ class Gps {
   void initializeSerial(std::string port, unsigned int baudrate,
                         uint16_t uart_in, uint16_t uart_out);
 
+  bool sendRtcm(const std::vector<uint8_t> &message);
+
   /**
    * @brief Reset the Serial I/O port after u-blox reset.
    * @param port the device port address

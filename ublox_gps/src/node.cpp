@@ -36,6 +36,10 @@
 #include <sys/stat.h>
 #include <time.h>
 
+#include <rtcm_msgs/Message.h>
+ros::Subscriber subRTCM;
+
+
 using namespace ublox_node;
 
 //
@@ -1840,10 +1844,25 @@ void TimProduct::initializeRosDiagnostics() {
   updater->force_update();
 }
 
+
+void rtcmCallback(const rtcm_msgs::Message::ConstPtr &msg)
+{
+  gps.sendRtcm(msg->message);
+}
+
+
 int main(int argc, char** argv) {
   ros::init(argc, argv, "ublox_gps");
   nh.reset(new ros::NodeHandle("~"));
   nh->param("debug", ublox_gps::debug, 1);
+
+  ros::NodeHandle param_nh("~");
+  std::string rtcm_topic;
+  param_nh.param("rtcm_topic", rtcm_topic, std::string("rtcm"));
+  subRTCM = nh->subscribe(rtcm_topic, 10, rtcmCallback);
+  
+
+
   if(ublox_gps::debug) {
     if (ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME,
                                        ros::console::levels::Debug))
