@@ -29,5 +29,5 @@ zed-f9p.yaml (only for seting up device connection and published messages)
 
 ## Launch
 
-roslaunch ublox_gps ublox_zed-f9p.launch
+```roslaunch ublox_gps ublox_zed-f9p.launch```
 
