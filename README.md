@@ -23,6 +23,9 @@ Disabled configuration of the receiver via yaml. Reciever should be configured v
 Hardcoded to work as HPG Rover device.
 NavRELPOSNED.msg updated to match u-blox 9 protocol version 27.1
 
+## RTCM Messages
+It may also require this package: https://github.com/tilk/rtcm_msgs
+
 ## Options
 
 zed-f9p.yaml (only for seting up device connection and published messages)
